@@ -65,3 +65,25 @@ var app6 = new Vue({
       ]
     }
   })
+
+  var vm = new Vue({
+    el: '#example',
+    data: {
+      message: '안녕하세요'
+    },
+    // computed: { message가 변경되지 않으면 계산되어 있던 결과 반환(캐싱)
+    //   // 계산된 getter
+    //   reversedMessage: function () {
+    //     // `this` 는 vm 인스턴스를 가리킵니다.
+    //     return this.message.split('').reverse().join('')
+    //   }
+    // },
+    methods: { //렌더링 할때마다 함수를 실행
+        reversedMessage: function () {
+            // `this` 는 vm 인스턴스를 가리킵니다.
+            return this.message.split('').reverse().join('')
+        }
+    }
+  })
+
+
