@@ -1,62 +1,64 @@
 <!-- @veu/cli 뷰브로젝트 생성 라이브러리 -->
 <!--v-for="작명 in 횟수" :key="작명"-->
+<!-- template html, script js, style css-->
 <template>
+    <!-- 모달창 -->
     <div class="black-bg" v-if="모달창 === true">
         <div class="white-bg">
             <h4>상세페이지</h4>
+            <button @click="close">닫기</button>
         </div>
     </div>
+
+    <!-- 메뉴 리스트 -->
     <div class="menu">
         <!-- <a v-for="작명 in 3" :key="작명">HOME</a> -->
-        <a v-for="(작명, i) in menu" :key="i">{{ 작명 + i }}</a>
+        <a v-for="(menulist, i) in menu" :key="i">{{ menulist }}</a>
         <!-- key 필수 i만 인식 나머지는 언디파인드 -->
     </div>
 
-    <div>
-        <h4 @click="모달창 = true" class="red" :style="style">xx 원룸</h4>
-        <p>{{ price1 }} 만원</p>
-    </div>
-    <div>
-        <h4>xx 원룸</h4>
-        <p>{{ price2 }} 만원</p>
-        <!-- 데이터 바인딩 자주변경 되는 데이터 -->
-        <button @click="increase">허위매물신고</button
-        ><span>신고수 : {{ 신고수 }}</span>
-    </div>
-    <div v-for="(pd, i) of products" v-bind:key="i">
-        {{ pd }}<br />
-        {{ price1 }}
-        <img
-            alt="Vue logo"
-            :src="require(`@/assets/room${i}.jpg`)"
-            class="img-li"
-        />
-        <!-- :이거 붙여줘야 ${}가능 -->
+    <!-- 데이터 바인딩 자주변경 되는 데이터 -->
 
-        <button @click="increase">허위매물신고</button
-        ><span>신고수 : {{ 신고수[i] }}</span>
+    <!-- :src="require(`@/assets/room${i}.jpg`)" -->
+
+    <div v-for="(pd, i) in 원룸들" v-bind:key="i">
+        <img alt="Vue logo" :src="`${pd.image}`" class="img-li" />
+        <!-- :이거 붙여줘야 ${}가능 html 속성에 -->
+        <span @click="모달창 = true" class="red" :style="style">{{
+            pd.title
+        }}</span
+        ><br />
+        {{ pd.price }}
+        <div>
+            <button @click="increase(i)">허위매물신고</button
+            ><span>신고수 : {{ pd.count }}</span>
+        </div>
     </div>
 </template>
 
 <script>
+import data from './assets/data';
 export default {
     name: 'App',
     data() {
         return {
-            i: [0, 1, 2],
             모달창: false,
             신고수: [0, 0, 0],
             menu: ['HOME', 'PRODUCT', 'ABOUT'],
-            price1: 1000,
+            price1: [1000, 2000, 3000],
             price2: 70,
             style: 'color:blue', //html속성도 가능
             products: ['역삼동원룸', '천호동원룸', '서울원룸'],
+            원룸들: data,
         };
     },
     components: {},
     methods: {
-        increase() {
-            this.신고수 += 1;
+        increase(i) {
+            this.원룸들[i].count += 1;
+        },
+        close() {
+            this.모달창 = false;
         },
     },
 };
