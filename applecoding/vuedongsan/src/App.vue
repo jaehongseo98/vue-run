@@ -2,36 +2,38 @@
 <!--v-for="작명 in 횟수" :key="작명"-->
 <!-- template html, script js, style css-->
 <template>
-    <!-- 모달창 -->
-    <div class="black-bg" v-if="모달창 === true">
-        <div class="white-bg">
-            <h4>상세페이지</h4>
-            <button @click="close">닫기</button>
+    <div>
+        <!-- 모달창 -->
+        <div class="black-bg" v-if="모달창 === true">
+            <div class="white-bg">
+                <h4>상세페이지</h4>
+                <button @click="close">닫기</button>
+            </div>
         </div>
-    </div>
 
-    <!-- 메뉴 리스트 -->
-    <div class="menu">
-        <!-- <a v-for="작명 in 3" :key="작명">HOME</a> -->
-        <a v-for="(menulist, i) in menu" :key="i">{{ menulist }}</a>
-        <!-- key 필수 i만 인식 나머지는 언디파인드 -->
-    </div>
+        <!-- 메뉴 리스트 -->
+        <div class="menu">
+            <!-- <a v-for="작명 in 3" :key="작명">HOME</a> -->
+            <a v-for="(menulist, i) in menu" :key="i">{{ menulist }}</a>
+            <!-- key 필수 i만 인식 나머지는 언디파인드 -->
+        </div>
 
-    <!-- 데이터 바인딩 자주변경 되는 데이터 -->
+        <!-- 데이터 바인딩 자주변경 되는 데이터 -->
 
-    <!-- :src="require(`@/assets/room${i}.jpg`)" -->
+        <!-- :src="require(`@/assets/room${i}.jpg`)" -->
 
-    <div v-for="(pd, i) in 원룸들" v-bind:key="i">
-        <img alt="Vue logo" :src="`${pd.image}`" class="img-li" />
-        <!-- :이거 붙여줘야 ${}가능 html 속성에 -->
-        <span @click="모달창 = true" class="red" :style="style">{{
-            pd.title
-        }}</span
-        ><br />
-        {{ pd.price }}
-        <div>
-            <button @click="increase(i)">허위매물신고</button
-            ><span>신고수 : {{ pd.count }}</span>
+        <div v-for="(pd, i) in 원룸들" v-bind:key="i">
+            <img alt="Vue logo" :src="`${pd.image}`" class="img-li" />
+            <!-- :이거 붙여줘야 ${}가능 html 속성에 -->
+            <span @click="모달창 = true" class="red" :style="style">{{
+                pd.title
+            }}</span
+            ><br />
+            {{ pd.price }}
+            <div>
+                <button @click="increase(i)">허위매물신고</button
+                ><span>신고수 : {{ pd.count }}</span>
+            </div>
         </div>
     </div>
 </template>
